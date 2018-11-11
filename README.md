@@ -14,6 +14,7 @@ ElasticsearchBackendListener
 ```
 
 ## How to run
+
 ```
-docker run --rm --name jmeter -v /path/to/tests/:/opt/tests/ rdpanek/jmeter:latest /opt/apache-jmeter-5.0/bin/jmeter.sh -n -t /opt/tests/TestPlan.jmx -l /opt/tests/results.jtl -j /opt/tests/test.log
+docker run -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
 ```
