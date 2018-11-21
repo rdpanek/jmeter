@@ -1,4 +1,4 @@
-# JMeter 5.0
+# JMeter 5.0 r1840935
 Dockerized JMeter with ElasticsearchBackendListener for live logging.
 
 ## Plugins
@@ -15,7 +15,7 @@ ElasticsearchBackendListener
 
 ## How to run as NON-GUI
 ### Run without Docker
-> jmeter -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx
+> jmeter --nongui --testfile testPlan.jmx
 
 ### Run as interactive
 ```
@@ -25,16 +25,48 @@ docker run -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile t
 ```
 docker run --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
 ```
-### Run as server
+### Run as server / generator
 ```
-docker run --name generator2 --detach --publish 1099:1099 --rm rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1099 -Dserver_port=1099 --server
+docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
 ```
-### Connect to server
+>Stopping a server after the end of the test It's possible add this option
+`-Jserver.exitaftertest=true`
+### Connect to generator
 ```
-docker run -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --remotestart 192.168.1.202:1098 --logfile result.jtl
+docker run --name controller -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --remotestart 192.168.1.202:1098,192.168.1.202:1099 --logfile result.jtl
 ```
 
-### Generate report after test end
+### Generate HTML report after test end
+Go to [Documentation](https://jmeter.apache.org/usermanual/generating-dashboard.html)
 ```
-docker run --name controller --detach --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile SeleniumGridJmeter5.jmx  --logfile result.jtl --forceDeleteResultFile --reportatendofloadtests --reportoutputfolder report -Jjmeter.reportgenerator.overall_granularity=1000
+docker run --name controller --detach --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile SeleniumGridJmeter5.jmx  --logfile result.jtl --forceDeleteResultFile --reportatendofloadtests --reportoutputfolder report   -Jjmeter.reportgenerator.overall_granularity=1000
 ```
+
+## 13. Remote Testing with JMeter
+Go to [Documentation](https://jmeter.apache.org/usermanual/remote-test.html)
+- Management of multiple JMeterEngines from a single machine
+- No need to copy the test plan to each server - the client sends it to all the servers
+
+> **Important** The same test plan is run by all the servers. JMeter does not distribute the load between servers, each runs the full test plan. So if you set 1000 Threads and have 6 JMeter server, you end up injecting 6000 Threads.
+
+> **Warning** Remote mode does use more resources in client. It's reason what JMeter use Stripped mode. Check always JMeter client resources, that is not overloaded.
+
+### Configure nodes
+
+All nodes ( client and servers )
+- are running exactly the same version of JMeter
+- are using the same version of Java on all systems. Using different versions of Java may work but is discouraged.
+- copy of dataProvider ( e.g. csv ) with test-data must be on each JMeter server.
+Advantage is, that each generator can work with unique test-data.
+
+### Start the servers / generators
+
+- On all servers run JMeter in remote node `--server`
+- Note that there can only be one JMeter server on each node unless different RMI ports are used.
+- By default, RMI uses dynamic ports for the JMeter server engine. This can cause problems for firewalls, so you can define the JMeter property `server.rmi.localport` to control this port numbers.
+- command line option for specify the remote hosts to us is `--remotestart`. Multiple servers can bbe added, comma-delimited.
+
+## Environment variables
+- HEAP `"-JXms2g -JXmx2g -JX:MaxMetaspaceSize=500m"`
+- GC_ALGO 
+JVM garbage collector options. Defaults to `-XX:+UseG1GC -XX:MaxGCPauseMillis=250 -XX:G1ReservePercent=20`
