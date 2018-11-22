@@ -27,13 +27,13 @@ docker run --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testf
 ```
 ### Run as server / generator
 ```
-docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
+docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
 ```
 >Stopping a server after the end of the test It's possible add this option
 `-Jserver.exitaftertest=true`
 ### Connect to generator
 ```
-docker run --name controller -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --remotestart 192.168.1.202:1098,192.168.1.202:1099 --logfile result.jtl
+docker run --name controller -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --remotestart 192.168.1.202:1098,192.168.1.202:1099 --logfile result.jtl
 ```
 
 ### Generate HTML report after test end
@@ -66,7 +66,14 @@ Advantage is, that each generator can work with unique test-data.
 - By default, RMI uses dynamic ports for the JMeter server engine. This can cause problems for firewalls, so you can define the JMeter property `server.rmi.localport` to control this port numbers.
 - command line option for specify the remote hosts to us is `--remotestart`. Multiple servers can bbe added, comma-delimited.
 
-## Environment variables
+### Environment variables
 - HEAP `"-JXms2g -JXmx2g -JX:MaxMetaspaceSize=500m"`
-- GC_ALGO 
+- GC_ALGO
 JVM garbage collector options. Defaults to `-XX:+UseG1GC -XX:MaxGCPauseMillis=250 -XX:G1ReservePercent=20`
+
+> Get the list of ip addresses `docker inspect --format '{{ .Name }} => {{ .NetworkSettings.IPAddress }}' $(docker ps -a -q)`
+
+## Docker Compose
+> Define a run multiple containers
+
+- For JMeter distributed load testing, we need run 1 master and N slave containers.

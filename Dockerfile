@@ -44,5 +44,3 @@ RUN apk update && apk upgrade && apk add \
 		chown jmeter:jmeter /jmeter && ls -lah /
 
 WORKDIR /jmeter
-ENTRYPOINT ["jmeter"]
-CMD ["--?"]
