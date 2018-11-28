@@ -25,6 +25,11 @@ docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter 
 ```
 docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testplan.jmx --logfile result.jtl
 ```
+
+### Run as specify USER
+```
+docker run --name jmeter -it --rm -v `pwd`:/jmeter --user $(id -u):$(id -g) rdpanek/jmeter:latest jmeter --nongui --testfile testPlans.jmx --logfile result.jtl
+```
 ### Run as server / generator
 ```
 docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
@@ -77,3 +82,8 @@ JVM garbage collector options. Defaults to `-XX:+UseG1GC -XX:MaxGCPauseMillis=25
 > Define a run multiple containers
 
 - For JMeter distributed load testing, we need run 1 master and N slave containers.
+
+# Useful links
+
+- [Running a Docker container as a non-root user](https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15)
+- [Running Your Images as a Non-Root User](https://github.com/openshift-evangelists/openshift-workshops/blob/master/modules/run-as-non-root.adoc)
