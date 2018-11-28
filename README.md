@@ -19,11 +19,11 @@ ElasticsearchBackendListener
 
 ### Run as interactive
 ```
-docker run -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testplan.jmx --logfile result.jtl
 ```
 ### Run as detached
 ```
-docker run --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
+docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testplan.jmx --logfile result.jtl
 ```
 ### Run as server / generator
 ```
@@ -39,7 +39,7 @@ docker run --name controller -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:late
 ### Generate HTML report after test end
 Go to [Documentation](https://jmeter.apache.org/usermanual/generating-dashboard.html)
 ```
-docker run --name controller --detach --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile SeleniumGridJmeter5.jmx  --logfile result.jtl --forceDeleteResultFile --reportatendofloadtests --reportoutputfolder report   -Jjmeter.reportgenerator.overall_granularity=1000
+docker run --name controller --detach --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --logfile result.jtl --forceDeleteResultFile --reportatendofloadtests --reportoutputfolder report   -Jjmeter.reportgenerator.overall_granularity=1000
 ```
 
 ## 13. Remote Testing with JMeter
