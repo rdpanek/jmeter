@@ -30,6 +30,12 @@ docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jm
 ```
 docker run --name jmeter -it --rm -v `pwd`:/jmeter --user $(id -u):$(id -g) rdpanek/jmeter:latest jmeter --nongui --testfile testPlans.jmx --logfile result.jtl
 ```
+
+### Run with log to stdout
+```
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testPlans.jmx -j /dev/stdout
+```
+
 ### Run as server / generator
 ```
 docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
