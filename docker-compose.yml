@@ -1,0 +1,24 @@
+version: '3'
+services:
+  generator:
+    image: rdpanek/jmeter:latest
+    ports:
+      - 1099:1099
+      - 50000:50000
+    command: jmeter -Jserver.rmi.ssl.disable=true -Jserver.rmi.localport=50000 -Dserver_port=1099 --server
+    networks:
+      - jmeter
+  controller:
+    container_name: controller
+    tty: true
+    image: rdpanek/jmeter:latest
+    volumes:
+      - .:/jmeter
+    depends_on:
+      - generator
+    networks:
+      - jmeter
+
+networks:
+  jmeter:
+    driver: bridge
