@@ -19,38 +19,38 @@ ElasticsearchBackendListener
 
 ### Run as interactive
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testplan.jmx --logfile result.jtl
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
 ```
 ### Run as detached
 ```
-docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testplan.jmx --logfile result.jtl
+docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
 ```
 
 ### Run as specify USER
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter --user $(id -u):$(id -g) rdpanek/jmeter:latest jmeter --nongui --testfile testPlans.jmx --logfile result.jtl
+docker run --name jmeter -it --rm -v `pwd`:/jmeter --user $(id -u):$(id -g) rdpanek/jmeter:latest --nongui --testfile testPlans.jmx --logfile result.jtl
 ```
 
 ### Run with log to stdout
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest jmeter --nongui --testfile testPlans.jmx -j /dev/stdout
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlans.jmx -j /dev/stdout
 ```
 
 ### Run as server / generator
 ```
-docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
+docker run --name generator1 --detach --publish 1098:1098 --rm rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=192.168.1.202 -Jserver.rmi.localport=1098 -Dserver_port=1098 --server
 ```
 >Stopping a server after the end of the test It's possible add this option
 `-Jserver.exitaftertest=true`
 ### Connect to generator
 ```
-docker run --name controller -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --remotestart 192.168.1.202:1098,192.168.1.202:1099 --logfile result.jtl
+docker run --name controller -it --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --remotestart 192.168.1.202:1098,192.168.1.202:1099 --logfile result.jtl
 ```
 
 ### Generate HTML report after test end
 Go to [Documentation](https://jmeter.apache.org/usermanual/generating-dashboard.html)
 ```
-docker run --name controller --detach --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest jmeter -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --logfile result.jtl --forceDeleteResultFile --reportatendofloadtests --reportoutputfolder report   -Jjmeter.reportgenerator.overall_granularity=1000
+docker run --name controller --detach --rm --volume `pwd`:/jmeter rdpanek/jmeter:latest -Jserver.rmi.ssl.disable=true --nongui --testfile testPlan.jmx --logfile result.jtl --forceDeleteResultFile --reportatendofloadtests --reportoutputfolder report   -Jjmeter.reportgenerator.overall_granularity=1000
 ```
 
 ## 13. Remote Testing with JMeter

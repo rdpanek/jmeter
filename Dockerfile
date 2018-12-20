@@ -1,5 +1,7 @@
+# About my dockerfile
+
 FROM alpine:3.8
-MAINTAINER Radim Daniel Pánek <rdpanek@gmail.com>
+LABEL maintainer="rdpanek@gmail.com"
 
 ENV JMETER_VERSION apache-jmeter-5.0
 ENV MIRROR_LINK https://www-eu.apache.org/dist//jmeter/binaries/${JMETER_VERSION}.tgz
@@ -44,3 +46,5 @@ RUN apk update && apk upgrade && apk add \
 		chown jmeter:jmeter /jmeter && ls -lah /
 
 WORKDIR /jmeter
+ENTRYPOINT ["jmeter"]
+CMD ["--?"]
