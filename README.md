@@ -17,6 +17,16 @@ ElasticsearchBackendListener
 ### Run without Docker
 > jmeter --nongui --testfile testPlan.jmx
 
+### Run with print command line options
+```
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest
+```
+
+### Run with help
+```
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --help
+```
+
 ### Run as interactive
 ```
 docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl

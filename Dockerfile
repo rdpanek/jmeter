@@ -43,7 +43,7 @@ RUN apk update && apk upgrade && apk add \
 		#
 		mkdir /jmeter && \
 		addgroup -S jmeter && adduser -S -G jmeter jmeter && \
-		chown jmeter:jmeter /jmeter && ls -lah /
+		chown jmeter:jmeter /jmeter
 
 WORKDIR /jmeter
 ENTRYPOINT ["jmeter"]
