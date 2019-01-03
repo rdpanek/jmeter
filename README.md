@@ -1,6 +1,12 @@
 # JMeter 5.0 r1840935
 Dockerized JMeter with ElasticsearchBackendListener for live logging.
 
+## Image based on RHEL Atomic Base Image
+- Version rhel7/rhel-atomic:7.6
+- More information https://access.redhat.com/containers/?tab=tags&platform=docker#/registry.access.redhat.com/rhel7/rhel-atomic
+- Documentation https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/getting_started_with_containers/using_red_hat_base_container_images_standard_and_minimal#using_rhel_atomic_base_images_minimal
+- Introducing the Red Hat Enterprise Linux Atomic Base Image https://rhelblog.redhat.com/2017/03/13/introducing-the-red-hat-enterprise-linux-atomic-base-image/
+
 ## Plugins
 ```
 - jpgc-dummy-0.2
@@ -38,12 +44,12 @@ docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --
 
 ### Run as specify USER
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter --user $(id -u):$(id -g) rdpanek/jmeter:latest --nongui --testfile testPlans.jmx --logfile result.jtl
+docker run --name jmeter -it --rm -v `pwd`:/jmeter --user $(id -u):$(id -g) rdpanek/jmeter:latest --nongui --testfile testPlan.jmx --logfile result.jtl
 ```
 
 ### Run with log to stdout
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlans.jmx -j /dev/stdout
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlan.jmx -j /dev/stdout
 ```
 
 ### Run as server / generator

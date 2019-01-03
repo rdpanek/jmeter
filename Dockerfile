@@ -1,6 +1,6 @@
 # About my dockerfile
 
-FROM alpine:3.8
+FROM openshift/base-centos7
 LABEL maintainer="rdpanek@gmail.com"
 
 ENV JMETER_VERSION apache-jmeter-5.0
@@ -15,13 +15,14 @@ ENV PATH $PATH:$JMETER_BIN
 STOPSIGNAL SIGKILL
 
 # Install JMeter
-RUN apk update && apk upgrade && apk add \
+RUN yum install -y \
+		java-1.8.0-openjdk \
+		java-1.8.0-openjdk-devel \
 		curl \
-		openjdk8-jre \
-		bash \
 		unzip && \
-		rm -rf /var/cache/apk/* && \
-		mkdir /opt/ && cd /opt/ && \
+		yum clean all
+
+RUN	cd /opt/ && \
 		curl -L -O ${MIRROR_LINK} && \
 		tar -xzf ${JMETER_VERSION}.tgz && rm -rf ${JMETER_VERSION}.tgz && \
 		# Install JMeter Plugins
@@ -39,11 +40,13 @@ RUN apk update && apk upgrade && apk add \
 		curl -L -o install.sh https://raw.githubusercontent.com/test-stack/elasticSearchBackendListenerClient/master/install.sh && \
 		chmod +x install.sh && ./install.sh && \
 		cd ${JMETER_LIB} && rm -rf install.sh && \
-		jmeter --version&& \
-		#
-		mkdir /jmeter && \
-		addgroup -S jmeter && adduser -S -G jmeter jmeter && \
+		jmeter --version
+
+RUN	mkdir /jmeter && \
+		adduser jmeter && usermod -aG jmeter jmeter && \
 		chown jmeter:jmeter /jmeter
+
+ENV JAVA_HOME /etc/alternatives/jre
 
 WORKDIR /jmeter
 ENTRYPOINT ["jmeter"]
