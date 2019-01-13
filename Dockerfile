@@ -20,9 +20,9 @@ RUN yum install -y \
 		java-1.8.0-openjdk-devel \
 		curl \
 		unzip && \
-		yum clean all
-
-RUN	cd /opt/ && \
+		yum clean all && \
+		#
+		cd /opt/ && \
 		curl -L -O ${MIRROR_LINK} && \
 		tar -xzf ${JMETER_VERSION}.tgz && rm -rf ${JMETER_VERSION}.tgz && \
 		# Install JMeter Plugins
@@ -40,9 +40,9 @@ RUN	cd /opt/ && \
 		curl -L -o install.sh https://raw.githubusercontent.com/test-stack/elasticSearchBackendListenerClient/master/install.sh && \
 		chmod +x install.sh && ./install.sh && \
 		cd ${JMETER_LIB} && rm -rf install.sh && \
-		jmeter --version
-
-RUN	mkdir /jmeter && \
+		jmeter --version && \
+		#
+		mkdir /jmeter && \
 		adduser jmeter && usermod -aG jmeter jmeter && \
 		chown jmeter:jmeter /jmeter
 
