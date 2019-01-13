@@ -19,27 +19,34 @@ https://github.com/test-stack/elasticSearchBackendListenerClient
 ElasticsearchBackendListener
 ```
 
+## Notice
+When you use RHEL, CentOS, or Fedora, mount volume with `Z` option.
+```
+-v `pwd`:/jmeter:Z
+```
+[Using Volumes with Docker can Cause Problems with SELinux](http://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/)
+
 ## How to run as NON-GUI
 ### Run without Docker
 > jmeter --nongui --testfile testPlan.jmx
 
 ### Run with print command line options
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest
+docker run --name jmeter -it --rm rdpanek/jmeter:latest
 ```
 
 ### Run with help
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --help
+docker run --name jmeter -it --rm rdpanek/jmeter:latest --help
 ```
 
 ### Run as interactive
 ```
-docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
+docker run --name jmeter -it --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlan.jmx --logfile result.jtl
 ```
 ### Run as detached
 ```
-docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testplan.jmx --logfile result.jtl
+docker run --name jmeter --detach --rm -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlan.jmx --logfile result.jtl
 ```
 
 ### Run as specify USER
