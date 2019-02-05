@@ -37,7 +37,7 @@ RUN yum install -y \
 		rm -rf ${JMETER_TEMP_PLUGINS} && \
 		# Install ElasticSearchBackendListenerClient
 		cd ${JMETER_LIB} && \
-		curl -L -o install.sh https://raw.githubusercontent.com/test-stack/elasticSearchBackendListenerClient/master/install.sh && \
+		curl -L -o install.sh https://raw.githubusercontent.com/rdpanek/elasticsearch-backend-listener/21b6c903df2642d2e3692d16b7b8f0425ef0efe9/install.sh && \
 		chmod +x install.sh && ./install.sh && \
 		cd ${JMETER_LIB} && rm -rf install.sh && \
 		jmeter --version && \
