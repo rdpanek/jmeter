@@ -1,0 +1,22 @@
+sudo: true
+services:
+  - docker
+
+branches:
+  only:
+    - develop
+    - master
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-set-default
+
+before_install:
+  - curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.deb && sudo dpkg -i --force-confnew elasticsearch-6.5.4.deb && sudo service elasticsearch start
+  - docker build -t rdpanek/jmeter .
+
+script:
+  - sleep 10
+  - travis/elastic-available-test.sh
+  - docker run --name jmeter -it --rm --network host -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlan.jmx -j /dev/stdout
