@@ -18,5 +18,6 @@ before_install:
 
 script:
   - sleep 10
-  - travis/elastic-available-test.sh
+  - travis/is-elastic-available-test.sh
   - docker run --name jmeter -it --rm --network host -v `pwd`:/jmeter rdpanek/jmeter:latest --nongui --testfile testPlan.jmx -j /dev/stdout
+  - travis/exist-some-documents-test.sh
