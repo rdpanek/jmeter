@@ -3,7 +3,7 @@
 FROM openshift/base-centos7
 LABEL maintainer="rdpanek@gmail.com"
 
-ENV JMETER_VERSION apache-jmeter-5.0
+ENV JMETER_VERSION apache-jmeter-5.1
 ENV MIRROR_LINK https://www-eu.apache.org/dist/jmeter/binaries/${JMETER_VERSION}.tgz
 ENV JMETER_HOME /opt/${JMETER_VERSION}
 ENV JMETER_TEMP_PLUGINS ${JMETER_HOME}/plugins
