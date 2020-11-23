@@ -1,15 +1,14 @@
 # About my dockerfile
 
 FROM openshift/base-centos7
-LABEL maintainer="rdpanek@gmail.com"
 
-ENV JMETER_VERSION apache-jmeter-5.1
+ENV JMETER_VERSION apache-jmeter-5.3
 ENV MIRROR_LINK https://www-eu.apache.org/dist/jmeter/binaries/${JMETER_VERSION}.tgz
 ENV JMETER_HOME /opt/${JMETER_VERSION}
 ENV JMETER_TEMP_PLUGINS ${JMETER_HOME}/plugins
 ENV JMETER_LIB ${JMETER_HOME}/lib
 ENV JMETER_BIN ${JMETER_HOME}/bin
-ENV ELASTIC_PLUGIN_LINK https://raw.githubusercontent.com/rdpanek/elasticsearch-backend-listener/2.1/install.sh
+ENV ELASTIC_PLUGIN_LINK https://raw.githubusercontent.com/rdpanek/elasticsearch-backend-listener/master/install.sh
 
 ENV PATH $PATH:$JMETER_BIN
 STOPSIGNAL SIGKILL
