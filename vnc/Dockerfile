@@ -36,6 +36,12 @@ RUN mkdir ~/.vnc && \
 RUN yum -y install xterm htop vim && \
     yum clean all
 
+# Install AWS CLI
+RUN yum -y install python3-pip && \
+	pip3 install awscli --upgrade --user && \
+	ln -s ~/.local/bin/aws /usr/bin/aws && \
+	aws --version
+
 COPY ./vnc/entrypoint.sh /
 COPY README.md /opt/app-root/src/Desktop/
 COPY run-editor.sh /opt/app-root/src/Desktop/

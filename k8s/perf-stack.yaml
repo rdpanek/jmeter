@@ -134,35 +134,30 @@ spec:
           value: "demoTestPlan.jmx"
         - name: GENERATORS
           value: "generator-0.generator:1098,generator-1.generator:1098"
-        - name: GIT_TESTS_PATH
+        - name: GIT_REPOSITORY
           valueFrom:
             configMapKeyRef:
-              name: smartmeter
-              key: repository.path
-        - name: GIT_TESTS
-          valueFrom:
-            configMapKeyRef:
-              name: smartmeter
+              name: jmeter
               key: repository
         - name: GIT_HOST
           valueFrom:
             configMapKeyRef:
-              name: smartmeter
+              name: jmeter
               key: repository.host
         - name: GIT_PORT
           valueFrom:
             configMapKeyRef:
-              name: smartmeter
+              name: jmeter
               key: repository.port
         - name: INTERNAL_PROXY
           valueFrom:
             configMapKeyRef:
-              name: smartmeter
+              name: jmeter
               key: internal.proxy
         - name: INTERNAL_PROXY_PORT
           valueFrom:
             configMapKeyRef:
-              name: smartmeter
+              name: jmeter
               key: internal.proxy.port
         resources:
           requests:
