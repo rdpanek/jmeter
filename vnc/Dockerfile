@@ -32,9 +32,16 @@ RUN mkdir ~/.vnc && \
     mv /opt/xstartup ~/.vnc/xstartup && \
     chmod +x ~/.vnc/xstartup
 
+### Install additional components
+RUN yum -y install xterm htop vim && \
+    yum clean all
+
 COPY ./vnc/entrypoint.sh /
+COPY README.md /opt/app-root/src/Desktop/
+COPY run-editor.sh /opt/app-root/src/Desktop/
+COPY run-distrib-test.sh /opt/app-root/src/Desktop/
 COPY curl-format.txt /
 RUN chmod +x /entrypoint.sh
 
-WORKDIR /jmeter
+WORKDIR $JMETER_HOME
 ENTRYPOINT ["/entrypoint.sh"]

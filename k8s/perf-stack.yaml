@@ -71,10 +71,11 @@ spec:
       hostname: generator
       containers:
       - name: generator
-        image: 946791837062.dkr.ecr.eu-central-1.amazonaws.com/perftest/smartmeter:5.3.0
+        image: rdpanek/jmeter:5.3.0
+        command: ['/opt/apache-jmeter-5.3/bin/jmeter' ,'-Jserver.rmi.ssl.disable=true', '-Jserver.rmi.localport=1098', '-Dserver_port=1098', '--server']
         ports:
           # server port rmi registry
-          - containerPort: 1099
+          - containerPort: 1098
           # server rmi local port
           - containerPort: 5001
         env:
@@ -120,7 +121,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: controller
-        image: 946791837062.dkr.ecr.eu-central-1.amazonaws.com/perftest/smartmeter:vnc-5.3.0
+        image: rdpanek/jmeter:vnc-5.3.0
         ports:
         #client rmi local port
         - containerPort: 55512

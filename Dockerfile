@@ -18,6 +18,7 @@ RUN yum install -y \
 		java-1.8.0-openjdk \
 		java-1.8.0-openjdk-devel \
 		curl \
+		htop \
 		unzip && \
 		yum clean all && \
 		#
@@ -47,6 +48,6 @@ RUN yum install -y \
 
 ENV JAVA_HOME /etc/alternatives/jre
 
-WORKDIR /jmeter
+WORKDIR $JMETER_HOME
 ENTRYPOINT ["jmeter"]
 CMD ["--?"]
