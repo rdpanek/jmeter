@@ -81,10 +81,6 @@ spec:
         env:
         - name: Xmx
           value: "10g"
-        - name: SERVER_PORT_RMI_REGISTRY
-          value: "1099"
-        - name: SERVER_RMI_LOCALPORT
-          value:  "5001"
         resources:
           requests:
             memory: "10Gi"
@@ -134,6 +130,10 @@ spec:
           value: "secret"
         - name: GIT_REVISION
           value: "89b3fb7"
+        - name: TEST_PLAN_NAME
+          value: "demoTestPlan.jmx"
+        - name: GENERATORS
+          value: "generator-0.generator:1098,generator-1.generator:1098"
         - name: GIT_TESTS_PATH
           valueFrom:
             configMapKeyRef:
