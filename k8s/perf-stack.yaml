@@ -131,7 +131,7 @@ spec:
         - name: GIT_REVISION
           value: "4e44e02"
         - name: TEST_PLAN_NAME
-          value: "demoTestPlan.jmx"
+          value: "examples/demoTestPlan.jmx"
         - name: GENERATORS
           value: "generator-0.generator:1098,generator-1.generator:1098"
         - name: GIT_REPOSITORY
