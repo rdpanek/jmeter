@@ -9,7 +9,7 @@ export GIT_TRACE=0
 
 git config --global credential.helper '!aws codecommit credential-helper $@'
 git config --global credential.UseHttpPath true
-cd $JMETER_HOME
+cd $JMETER_HOME && mkdir tests
 git clone $GIT_REPOSITORY tests
 ls -lah ${JMETER_HOME}/tests
 

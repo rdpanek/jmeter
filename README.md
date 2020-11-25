@@ -119,11 +119,37 @@ All nodes ( client and servers )
 Run docker image
 
 ```
-docker run --name jmeter -it --rm -p 5901:5901 rdpanek/jmeter:vnc-5.3.0
+docker run --name jmeter -it -v `pwd`:/tests --rm -p 5901:5901 rdpanek/jmeter:vnc-5.3.0
 ```
 
 and connect via some VNC Viewer to `localhost:5901` and password is `secret`
 
+
+# k8s
+
+Create config object
+
+```
+kubectl -n loadtest-1 apply -f k8s/jmeter-configmap.yaml
+```
+
+Start Performance Stack
+
+```
+kubectl -n loadtest-1 create -f k8s/perf-stack.yaml
+```
+
+Port Forward for VNC Viewer
+
+```
+kubectl -n loadtest-1 port-forward controller-0 5901:5901
+```
+> Now, you can connect to controller via your favorite VNC Viewer `localhost:5901`
+
+On Desktop you can use scripts
+
+- `run-editor.sh` Start JMeter
+- `run-distrib-test.sh` Start Distributed testing
 
 ## Docker Compose
 

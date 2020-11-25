@@ -129,7 +129,7 @@ spec:
         - name: VNC_PW
           value: "secret"
         - name: GIT_REVISION
-          value: "1fec5be"
+          value: "4e44e02"
         - name: TEST_PLAN_NAME
           value: "demoTestPlan.jmx"
         - name: GENERATORS
