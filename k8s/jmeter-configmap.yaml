@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: jmeter-smoke
+  name: jmeter-config
 data:
-  elasticsearch.cluster: 
+  elasticsearch.cluster: 10.100.196.100
   elasticsearch.port: "9300"
-  repository: 
-  repository.host: 
+  repository: https://github.com/rdpanek/jmeter
+  repository.host: github.com
   repository.port: "443"
   internal.proxy: "0.0.0.0"
   internal.proxy.port: "0000"

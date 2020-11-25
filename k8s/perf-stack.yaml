@@ -129,7 +129,7 @@ spec:
         - name: VNC_PW
           value: "secret"
         - name: GIT_REVISION
-          value: "89b3fb7"
+          value: "1fec5be"
         - name: TEST_PLAN_NAME
           value: "demoTestPlan.jmx"
         - name: GENERATORS
@@ -137,27 +137,27 @@ spec:
         - name: GIT_REPOSITORY
           valueFrom:
             configMapKeyRef:
-              name: jmeter
+              name: jmeter-config
               key: repository
         - name: GIT_HOST
           valueFrom:
             configMapKeyRef:
-              name: jmeter
+              name: jmeter-config
               key: repository.host
         - name: GIT_PORT
           valueFrom:
             configMapKeyRef:
-              name: jmeter
+              name: jmeter-config
               key: repository.port
         - name: INTERNAL_PROXY
           valueFrom:
             configMapKeyRef:
-              name: jmeter
+              name: jmeter-config
               key: internal.proxy
         - name: INTERNAL_PROXY_PORT
           valueFrom:
             configMapKeyRef:
-              name: jmeter
+              name: jmeter-config
               key: internal.proxy.port
         resources:
           requests:
