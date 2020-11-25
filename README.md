@@ -151,6 +151,14 @@ On Desktop you can use scripts
 - `run-editor.sh` Start JMeter
 - `run-distrib-test.sh` Start Distributed testing
 
+
+# Perf Demo Web
+
+```
+docker run --name test-web --rm -p 8080:80 -d rdpanek/test-web:1.0
+```
+
+
 ## Docker Compose
 
 > Define a run multiple containers
