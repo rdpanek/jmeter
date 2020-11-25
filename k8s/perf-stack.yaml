@@ -80,14 +80,14 @@ spec:
           - containerPort: 5001
         env:
         - name: Xmx
-          value: "10g"
+          value: "2g"
         resources:
           requests:
-            memory: "10Gi"
-            cpu: "3"
+            memory: "2Gi"
+            cpu: "1"
           limits:
-            memory: "10Gi"
-            cpu: "4"
+            memory: "2Gi"
+            cpu: "2"
         imagePullPolicy: "IfNotPresent"
 ---
 apiVersion: apps/v1
@@ -161,11 +161,11 @@ spec:
               key: internal.proxy.port
         resources:
           requests:
-            memory: "10Gi"
-            cpu: "3"
+            memory: "2Gi"
+            cpu: "1"
           limits:
-            memory: "10Gi"
-            cpu: "4"
+            memory: "2Gi"
+            cpu: "2"
         imagePullPolicy: "Always"
       initContainers:
       - name: wait-for-generators
