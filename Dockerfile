@@ -31,6 +31,8 @@ RUN yum install -y \
 		unzip -o -d ${JMETER_TEMP_PLUGINS} jpgc-dummy-0.2.zip && \
 		curl -L -O https://jmeter-plugins.org/files/packages/jpgc-casutg-2.6.zip && \
 		unzip -o -d ${JMETER_TEMP_PLUGINS} jpgc-casutg-2.6.zip && \
+		curl -L -O https://jmeter-plugins.org/files/packages/bzm-http2-1.6.zip && \
+		unzip -o -d ${JMETER_TEMP_PLUGINS} bzm-http2-1.6.zip && \
 		# Copy plugins to jmeter enviroment
 		cp lib/*.jar ${JMETER_LIB}/ && \
 		cp lib/ext/*.jar ${JMETER_LIB}/ext/ && \

@@ -1,4 +1,4 @@
-FROM rdpanek/jmeter:5.3.0
+FROM rdpanek/jmeter:5.3.1.1
 
 LABEL io.k8s.description="VNC Container based on Ubuntu" \
     io.k8s.display-name="VNC Container based on Ubuntu" \
@@ -47,7 +47,7 @@ COPY README.md /opt/app-root/src/Desktop/
 COPY run-editor.sh /opt/app-root/src/Desktop/
 COPY run-distrib-test.sh /opt/app-root/src/Desktop/
 COPY curl-format.txt /
-COPY demoTestPlan.jmx $JMETER_HOME
+COPY examples/demoTestPlan.jmx $JMETER_HOME
 RUN chmod +x /entrypoint.sh
 
 WORKDIR $JMETER_HOME
